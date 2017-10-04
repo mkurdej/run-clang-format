@@ -47,10 +47,9 @@ def main():
                 break
         else:
             full_invocation = invocation
-            full_invocation.append('"' + filename + '"')
+            full_invocation.append(filename)
             try:
                 print('Processing', filename)
-                print(str(full_invocation))
                 subprocess.check_output(full_invocation)
             except subprocess.CalledProcessError as ex:
                 print("Unable to run clang-format.", file=sys.stderr)
