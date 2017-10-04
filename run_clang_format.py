@@ -37,14 +37,18 @@ def parse_args(argv=None):
     parser.add_argument('-clang-format-binary', metavar='PATH',
                         default='clang-format',
                         help='path to clang-format binary')
-    parser.add_argument('-d', dest='directories', nargs='*',
-                        help='path(s) used to glob source files',
-                        default=[os.getcwd()])
+    parser.add_argument('-d', dest='directories', action='append',
+                        help='path(s) used to glob source files')
     parser.add_argument('-e', dest='extensions',
                         help='comma-delimited list of extensions used to glob source files',
                         default="c,cc,cpp,cxx,c++,h,hh,hpp,hxx,h++")
 
-    return parser.parse_args(argv[1:])
+    args = parser.parse_args(argv[1:])
+
+    if not args.directories:
+        args.directories = [os.getcwd()]
+
+    return args
 
 
 def format_all(args, files):
