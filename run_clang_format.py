@@ -28,7 +28,9 @@ def glob_files(args):
     return files
 
 
-def parse_args(argv=sys.argv):
+def parse_args(argv=None):
+    if argv is None:
+        argv = sys.argv
     parser = argparse.ArgumentParser(
         description='Runs clang-format over all files in given directories.'
         ' Requires clang-format in PATH.')
@@ -42,14 +44,10 @@ def parse_args(argv=sys.argv):
                         help='comma-delimited list of extensions used to glob source files',
                         default="c,cc,cpp,cxx,h,hh,hpp,hxx")
 
-    return parser.parse_args()
+    return parser.parse_args(argv[1:])
 
 
-def main():
-    args = parse_args()
-
-    files = glob_files(args)
-
+def format_all(args, files):
     invocation = [args.clang_format_binary, '-i', '-style=file']
     for filename in files:
         full_invocation = invocation
@@ -63,6 +61,14 @@ def main():
                   file=sys.stderr)
             print("Return code: " + str(ex.returncode), file=sys.stderr)
             sys.exit(1)
+
+
+def main():
+    args = parse_args()
+
+    files = glob_files(args)
+
+    format_all(args, files)
 
 
 if __name__ == '__main__':
