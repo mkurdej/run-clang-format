@@ -17,28 +17,30 @@ import sys
 def glob_files(args):
     files = []
 
-    extensions = "c cc cpp cxx h hh hpp hxx".split()
+    extensions = args.extensions.split(',')
 
-    for root, _, filenames in os.walk(args.build_path):
-        for ext in extensions:
-            for filename in fnmatch.filter(filenames, '*.' + ext):
-                # for filename in glob.glob(args.build_path + "/**/*." + ext):
-                files.append(os.path.join(root, filename))
+    for directory in args.directories:
+        for root, _, filenames in os.walk(directory):
+            for ext in extensions:
+                for filename in fnmatch.filter(filenames, '*.' + ext):
+                    files.append(os.path.join(root, filename))
 
     return files
 
 
 def main():
     parser = argparse.ArgumentParser(
-        description='Runs clang-format over all files in a current directory.'
+        description='Runs clang-format over all files in given directories.'
         ' Requires clang-format in PATH.')
     parser.add_argument('-clang-format-binary', metavar='PATH',
                         default='clang-format',
                         help='path to clang-format binary')
-
-    parser.add_argument('-p', dest='build_path',
-                        help='Path used to glob source files.',
-                        default=os.getcwd())
+    parser.add_argument('-d', dest='directories', nargs='*',
+                        help='path(s) used to glob source files',
+                        default=[os.getcwd()])
+    parser.add_argument('-e', dest='extensions',
+                        help='comma-delimited list of extensions used to glob source files',
+                        default="c,cc,cpp,cxx,h,hh,hpp,hxx")
 
     args = parser.parse_args()
 
