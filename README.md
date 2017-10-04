@@ -1,2 +1,2 @@
 # run-clang-format
-Script to run clang-format on a all files in a directory
+Script to run clang-format on all files in a directory
