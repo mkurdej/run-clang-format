@@ -9,8 +9,9 @@ import run_clang_format  # pylint: disable=C0413
 
 class GlobSingleDir(unittest.TestCase):
     def test_basic(self):
-        args = run_clang_format.parse_args(
-            [sys.argv[0], '-d', 'glob_single_dir'])
+        args = run_clang_format.parse_args([
+            sys.argv[0],
+            '-d', 'glob_single_dir'])
         files = run_clang_format.glob_files(args)
         self.assertEqual(2, len(files))
         self.assertEqual([
