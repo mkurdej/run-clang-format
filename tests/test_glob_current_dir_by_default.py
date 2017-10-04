@@ -18,9 +18,10 @@ class GlobCurrentDirByDefault(unittest.TestCase):
         args = run_clang_format.parse_args([sys.argv[0]])
         files = run_clang_format.glob_files(args)
         self.assertEqual(2, len(files))
-        self.assertEqual([os.path.join(os.getcwd(), 'a.cpp'),
-                          os.path.join(os.getcwd(), 'a.hpp')],
-                         files)
+        self.assertEqual([
+            os.path.join(os.getcwd(), 'a.cpp'),
+            os.path.join(os.getcwd(), 'a.hpp')],
+            files)
 
 
 if __name__ == '__main__':

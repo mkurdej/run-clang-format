@@ -13,15 +13,16 @@ class GlobChildrenDirs(unittest.TestCase):
             [sys.argv[0], '-d', 'glob_children_dirs'])
         files = run_clang_format.glob_files(args)
         self.assertEqual(8, len(files))
-        self.assertEqual([os.path.join('glob_children_dirs', 'root.cpp'),
-                          os.path.join('glob_children_dirs', 'root.hpp'),
-                          os.path.join('glob_children_dirs', 'a', 'a.cpp'),
-                          os.path.join('glob_children_dirs', 'a', 'a.hpp'),
-                          os.path.join('glob_children_dirs', 'b', 'b.cpp'),
-                          os.path.join('glob_children_dirs', 'b', 'b.hpp'),
-                          os.path.join('glob_children_dirs', 'c', 'c.cpp'),
-                          os.path.join('glob_children_dirs', 'c', 'c.hpp')],
-                         files)
+        self.assertEqual([
+            os.path.join('glob_children_dirs', 'root.cpp'),
+            os.path.join('glob_children_dirs', 'root.hpp'),
+            os.path.join('glob_children_dirs', 'a', 'a.cpp'),
+            os.path.join('glob_children_dirs', 'a', 'a.hpp'),
+            os.path.join('glob_children_dirs', 'b', 'b.cpp'),
+            os.path.join('glob_children_dirs', 'b', 'b.hpp'),
+            os.path.join('glob_children_dirs', 'c', 'c.cpp'),
+            os.path.join('glob_children_dirs', 'c', 'c.hpp')],
+            files)
 
 
 if __name__ == '__main__':

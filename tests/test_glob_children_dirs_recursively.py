@@ -13,15 +13,17 @@ class GlobChildrenDirsRecursively(unittest.TestCase):
             [sys.argv[0], '-d', 'glob_children_dirs_recursively'])
         files = run_clang_format.glob_files(args)
         self.assertEqual(8, len(files))
-        self.assertEqual([os.path.join('glob_children_dirs_recursively', 'root.cpp'),
-                          os.path.join('glob_children_dirs_recursively', 'root.hpp'),
-                          os.path.join('glob_children_dirs_recursively', 'a', 'a.cpp'),
-                          os.path.join('glob_children_dirs_recursively', 'a', 'a.hpp'),
-                          os.path.join('glob_children_dirs_recursively', 'a', 'b', 'b.cpp'),
-                          os.path.join('glob_children_dirs_recursively', 'a', 'b', 'b.hpp'),
-                          os.path.join('glob_children_dirs_recursively', 'a', 'b', 'c', 'c.cpp'),
-                          os.path.join('glob_children_dirs_recursively', 'a', 'b', 'c', 'c.hpp')],
-                         files)
+        self.assertEqual([
+            os.path.join('glob_children_dirs_recursively', 'root.cpp'),
+            os.path.join('glob_children_dirs_recursively', 'root.hpp'),
+            os.path.join('glob_children_dirs_recursively', 'a', 'a.cpp'),
+            os.path.join('glob_children_dirs_recursively', 'a', 'a.hpp'),
+            os.path.join('glob_children_dirs_recursively', 'a', 'b', 'b.cpp'),
+            os.path.join('glob_children_dirs_recursively', 'a', 'b', 'b.hpp'),
+            os.path.join('glob_children_dirs_recursively',
+                         'a', 'b', 'c', 'c.cpp'),
+            os.path.join('glob_children_dirs_recursively', 'a', 'b', 'c', 'c.hpp')],
+            files)
 
 
 if __name__ == '__main__':
