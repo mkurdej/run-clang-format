@@ -42,6 +42,9 @@ def parse_args(argv=None):
     parser.add_argument('-e', '--extensions', dest='extensions',
                         help='comma-delimited list of extensions used to glob source files',
                         default="c,cc,cpp,cxx,c++,h,hh,hpp,hxx,h++")
+    parser.add_argument('-style',
+                        help='formatting style',
+                        default="file")
 
     args = parser.parse_args(argv[1:])
 
@@ -52,7 +55,7 @@ def parse_args(argv=None):
 
 
 def format_all(args, files):
-    invocation = [args.clang_format_binary, '-i', '-style=file']
+    invocation = [args.clang_format_binary, '-i', '-style=' + args.style]
     for filename in files:
         full_invocation = invocation
         full_invocation.append(filename)
