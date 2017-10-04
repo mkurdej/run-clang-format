@@ -28,7 +28,7 @@ def glob_files(args):
     return files
 
 
-def main():
+def parse_args(argv=sys.argv):
     parser = argparse.ArgumentParser(
         description='Runs clang-format over all files in given directories.'
         ' Requires clang-format in PATH.')
@@ -42,30 +42,27 @@ def main():
                         help='comma-delimited list of extensions used to glob source files',
                         default="c,cc,cpp,cxx,h,hh,hpp,hxx")
 
-    args = parser.parse_args()
+    return parser.parse_args()
 
-    ignore = [
-    ]
+
+def main():
+    args = parse_args()
 
     files = glob_files(args)
 
     invocation = [args.clang_format_binary, '-i', '-style=file']
     for filename in files:
-        for txt in ignore:
-            if txt in filename or filename in txt:
-                break
-        else:
-            full_invocation = invocation
-            full_invocation.append(filename)
-            try:
-                print('Processing', filename)
-                subprocess.check_output(full_invocation)
-            except subprocess.CalledProcessError as ex:
-                print("Unable to run clang-format.", file=sys.stderr)
-                print("Command    : " + ' '.join(ex.cmd) + ").",
-                      file=sys.stderr)
-                print("Return code: " + str(ex.returncode), file=sys.stderr)
-                sys.exit(1)
+        full_invocation = invocation
+        full_invocation.append(filename)
+        try:
+            print('Processing', filename)
+            subprocess.check_output(full_invocation)
+        except subprocess.CalledProcessError as ex:
+            print("Unable to run clang-format.", file=sys.stderr)
+            print("Command    : " + ' '.join(ex.cmd) + ").",
+                  file=sys.stderr)
+            print("Return code: " + str(ex.returncode), file=sys.stderr)
+            sys.exit(1)
 
 
 if __name__ == '__main__':
