@@ -12,7 +12,7 @@ class GlobChildrenDirs(unittest.TestCase):
         args = run_clang_format.parse_args([
             sys.argv[0],
             '-d', os.path.join('glob_multiple_dirs', 'a'),
-            '-d', os.path.join('glob_multiple_dirs', 'b'),
+            '--directory', os.path.join('glob_multiple_dirs', 'b'),
             '-d', os.path.join('glob_multiple_dirs', 'c')])
         files = run_clang_format.glob_files(args)
         self.assertEqual(6, len(files))

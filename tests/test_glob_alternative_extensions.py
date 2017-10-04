@@ -8,11 +8,25 @@ import run_clang_format  # pylint: disable=C0413
 
 
 class GlobAllExtensions(unittest.TestCase):
-    def test_basic(self):
+    def test_short_arg(self):
         args = run_clang_format.parse_args([
             sys.argv[0],
             '-d', 'glob_alternative_extensions',
             '-e', 'c1,c2'])
+        files = run_clang_format.glob_files(args)
+        self.assertEqual(3, len(files))
+        files.sort()
+        self.assertEqual([
+            os.path.join('glob_alternative_extensions', 'a.c1'),
+            os.path.join('glob_alternative_extensions', 'a.c2'),
+            os.path.join('glob_alternative_extensions', 'b.c1')],
+            files)
+
+    def test_long_arg(self):
+        args = run_clang_format.parse_args([
+            sys.argv[0],
+            '-d', 'glob_alternative_extensions',
+            '--extensions', 'c1,c2'])
         files = run_clang_format.glob_files(args)
         self.assertEqual(3, len(files))
         files.sort()

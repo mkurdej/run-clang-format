@@ -34,12 +34,12 @@ def parse_args(argv=None):
     parser = argparse.ArgumentParser(
         description='Runs clang-format over all files in given directories.'
         ' Requires clang-format in PATH.')
-    parser.add_argument('-clang-format-binary', metavar='PATH',
+    parser.add_argument('--clang-format-binary', metavar='PATH',
                         default='clang-format',
                         help='path to clang-format binary')
-    parser.add_argument('-d', dest='directories', action='append',
+    parser.add_argument('-d', '--directory', metavar='DIRPATH', dest='directories', action='append',
                         help='path(s) used to glob source files')
-    parser.add_argument('-e', dest='extensions',
+    parser.add_argument('-e', '--extensions', dest='extensions',
                         help='comma-delimited list of extensions used to glob source files',
                         default="c,cc,cpp,cxx,c++,h,hh,hpp,hxx,h++")
 
