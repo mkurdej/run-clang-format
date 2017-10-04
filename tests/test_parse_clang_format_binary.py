@@ -15,8 +15,7 @@ class ParseClangFormatbinary(unittest.TestCase):
             '-d', 'parse_clang_format_binary'])
         files = run_clang_format.glob_files(args)
 
-        self.assertRaises(FileNotFoundError,  # pylint: disable=E0602
-                          run_clang_format.format_all, args, files)
+        self.assertRaises(OSError, run_clang_format.format_all, args, files)
 
 
 if __name__ == '__main__':
