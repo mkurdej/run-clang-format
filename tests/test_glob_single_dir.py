@@ -9,7 +9,7 @@ import run_clang_format  # pylint: disable=C0413
 
 class GlobSingleDir(unittest.TestCase):
     def test_basic(self):
-        args = run_clang_format.parse_args(['script.py'])
+        args = run_clang_format.parse_args([sys.argv[0]])
         files = run_clang_format.glob_files(args)
         self.assertEqual(2, len(files))
         self.assertEqual([os.path.join(os.getcwd(), 'glob_single_dir', 'a.cpp'),
