@@ -64,18 +64,22 @@ def format_all(args, files):
     if args.inplace:
         invocation.append('-i')
 
+    formatted_files = {}
     for filename in files:
         full_invocation = invocation
         full_invocation.append(filename)
         try:
             print('Processing', filename, file=sys.stderr)
-            print(subprocess.check_output(full_invocation))
+            formatted = subprocess.check_output(full_invocation)
+            formatted_files[filename] = formatted
         except subprocess.CalledProcessError as ex:
             print("Unable to run clang-format.", file=sys.stderr)
             print("Command    : " + ' '.join(ex.cmd) + ").",
                   file=sys.stderr)
             print("Return code: " + str(ex.returncode), file=sys.stderr)
             sys.exit(1)
+
+    return formatted_files
 
 
 def main():
