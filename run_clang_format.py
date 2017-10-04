@@ -42,7 +42,7 @@ def parse_args(argv=None):
                         default=[os.getcwd()])
     parser.add_argument('-e', dest='extensions',
                         help='comma-delimited list of extensions used to glob source files',
-                        default="c,cc,cpp,cxx,h,hh,hpp,hxx")
+                        default="c,cc,cpp,cxx,c++,h,hh,hpp,hxx,h++")
 
     return parser.parse_args(argv[1:])
 
