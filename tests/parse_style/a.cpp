@@ -1,0 +1,3 @@
+void style() {
+// non-empty
+}
