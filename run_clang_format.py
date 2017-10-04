@@ -45,6 +45,10 @@ def parse_args(argv=None):
     parser.add_argument('-style',
                         help='formatting style',
                         default="file")
+    parser.add_argument('--no-inplace', dest='inplace', action='store_false',
+                        help='do not format files inplace, but write output to the console'
+                        ' (useful for debugging)',
+                        default=True)
 
     args = parser.parse_args(argv[1:])
 
@@ -55,13 +59,17 @@ def parse_args(argv=None):
 
 
 def format_all(args, files):
-    invocation = [args.clang_format_binary, '-i', '-style=' + args.style]
+    invocation = [args.clang_format_binary]
+    invocation.append('-style=' + args.style)
+    if args.inplace:
+        invocation.append('-i')
+
     for filename in files:
         full_invocation = invocation
         full_invocation.append(filename)
         try:
-            print('Processing', filename)
-            subprocess.check_output(full_invocation)
+            print('Processing', filename, file=sys.stderr)
+            print(subprocess.check_output(full_invocation))
         except subprocess.CalledProcessError as ex:
             print("Unable to run clang-format.", file=sys.stderr)
             print("Command    : " + ' '.join(ex.cmd) + ").",
