@@ -14,6 +14,20 @@ import subprocess
 import sys
 
 
+def glob_files(args):
+    files = []
+
+    extensions = "c cc cpp cxx h hh hpp hxx".split()
+
+    for root, _, filenames in os.walk(args.build_path):
+        for ext in extensions:
+            for filename in fnmatch.filter(filenames, '*.' + ext):
+                # for filename in glob.glob(args.build_path + "/**/*." + ext):
+                files.append(os.path.join(root, filename))
+
+    return files
+
+
 def main():
     parser = argparse.ArgumentParser(
         description='Runs clang-format over all files in a current directory.'
@@ -31,14 +45,7 @@ def main():
     ignore = [
     ]
 
-    extensions = "c cc cpp cxx h hh hpp hxx".split()
-    files = []
-
-    for root, _, filenames in os.walk(args.build_path):
-        for ext in extensions:
-            for filename in fnmatch.filter(filenames, '*.' + ext):
-                # for filename in glob.glob(args.build_path + "/**/*." + ext):
-                files.append(os.path.join(root, filename))
+    files = glob_files(args)
 
     invocation = [args.clang_format_binary, '-i', '-style=file']
     for filename in files:
@@ -53,7 +60,8 @@ def main():
                 subprocess.check_output(full_invocation)
             except subprocess.CalledProcessError as ex:
                 print("Unable to run clang-format.", file=sys.stderr)
-                print("Command    : " + ' '.join(ex.cmd) + ").", file=sys.stderr)
+                print("Command    : " + ' '.join(ex.cmd) + ").",
+                      file=sys.stderr)
                 print("Return code: " + str(ex.returncode), file=sys.stderr)
                 sys.exit(1)
 
