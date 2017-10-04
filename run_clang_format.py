@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-# pylint: disable=C0103,C0111
+# pylint: disable=C0111
 
 """
 Runs clang format over all cpp files
