@@ -52,7 +52,7 @@ def parse_args(argv=None):
                         help='do not format files inplace, but write output to the console'
                         ' (useful for debugging)',
                         default=True)
-    parser.add_argument('-j', type=int, default=0,
+    parser.add_argument('-j', metavar='THREAD_COUNT', type=int, default=0,
                         help='number of clang-format instances to be run in parallel')
 
     args = parser.parse_args(argv[1:])
