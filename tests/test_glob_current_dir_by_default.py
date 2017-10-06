@@ -28,6 +28,20 @@ class GlobCurrentDirByDefault(unittest.TestCase):
             files)
 
 
+class GlobCurrentDirByDefaultInvokingMain(unittest.TestCase):
+    def setUp(self):
+        os.chdir('glob_current_dir_by_default')
+
+    def tearDown(self):
+        os.chdir('..')
+
+    def test_basic(self):
+        old_sys_argv = sys.argv
+        sys.argv = [old_sys_argv[0]]
+        run_clang_format.main()
+        sys.argv = old_sys_argv
+
+
 if __name__ == '__main__':
     import xmlrunner
     unittest.main(testRunner=xmlrunner.XMLTestRunner(  # pylint: disable=E1102
