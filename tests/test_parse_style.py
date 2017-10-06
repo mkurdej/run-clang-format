@@ -3,7 +3,7 @@
 import os
 import sys
 import unittest
-sys.path.append(os.path.abspath('..'))
+sys.path.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..'))
 import run_clang_format  # pylint: disable=C0413
 
 
