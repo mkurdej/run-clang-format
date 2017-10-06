@@ -54,6 +54,8 @@ def parse_args(argv=None):
                         default=True)
     parser.add_argument('-j', metavar='THREAD_COUNT', type=int, default=0,
                         help='number of clang-format instances to be run in parallel')
+    parser.add_argument('-v', '--verbose', action='store_true',
+                        help='output verbose comments')
 
     args = parser.parse_args(argv[1:])
 
@@ -91,7 +93,8 @@ def run_format(args, task_queue, formatted_files):
         filename = task_queue.get()
         invocation = _get_format_invocation(args, filename)
 
-        print('Processing {}'.format(filename), file=sys.stderr)
+        if args.verbose:
+            print('Processing {}'.format(filename))
         formatted = subprocess.check_output(invocation)
         formatted_files[filename] = formatted
 
