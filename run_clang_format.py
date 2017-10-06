@@ -72,12 +72,18 @@ def format_all(args, files):
             print('Processing', filename, file=sys.stderr)
             formatted = subprocess.check_output(full_invocation)
             formatted_files[filename] = formatted
+        except OSError as ex:
+            print("Cannot find clang-format at '{}'.".format(args.clang_format_binary),
+                  file=sys.stderr)
+
+            raise ex
         except subprocess.CalledProcessError as ex:
             print("Unable to run clang-format.", file=sys.stderr)
             print("Command    : " + ' '.join(ex.cmd) + ").",
                   file=sys.stderr)
             print("Return code: " + str(ex.returncode), file=sys.stderr)
-            sys.exit(1)
+
+            raise ex
 
     return formatted_files
 
