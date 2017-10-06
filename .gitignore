@@ -2,4 +2,6 @@
 *.pyc
 
 .coverage
+coverage.xml
 htmlcov/
+test-reports/
