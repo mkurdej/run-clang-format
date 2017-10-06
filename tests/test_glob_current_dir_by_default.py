@@ -15,7 +15,11 @@ class GlobCurrentDirByDefault(unittest.TestCase):
         os.chdir('..')
 
     def test_basic(self):
-        args = run_clang_format.parse_args([sys.argv[0]])
+        old_sys_argv = sys.argv
+        sys.argv = [old_sys_argv[0]]
+        args = run_clang_format.parse_args()
+        sys.argv = old_sys_argv
+
         files = run_clang_format.glob_files(args)
         self.assertEqual(2, len(files))
         self.assertEqual([
