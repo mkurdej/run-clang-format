@@ -58,19 +58,23 @@ def parse_args(argv=None):
     return args
 
 
-def format_all(args, files):
+def _get_format_invocation(args, filename):
     invocation = [args.clang_format_binary]
     invocation.append('-style=' + args.style)
     if args.inplace:
         invocation.append('-i')
 
+    invocation.append(filename)
+    return invocation
+
+
+def format_all(args, files):
     formatted_files = {}
     for filename in files:
-        full_invocation = invocation
-        full_invocation.append(filename)
+        invocation = _get_format_invocation(args, filename)
         try:
             print('Processing {}'.format(filename), file=sys.stderr)
-            formatted = subprocess.check_output(full_invocation)
+            formatted = subprocess.check_output(invocation)
             formatted_files[filename] = formatted
         except OSError:
             print("Cannot find clang-format at '{}'.".format(args.clang_format_binary),
