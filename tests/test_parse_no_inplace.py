@@ -12,7 +12,7 @@ class ParseClangFormatbinary(unittest.TestCase):
         args = run_clang_format.parse_args([
             sys.argv[0],
             '--no-inplace',
-            '-d', 'parse_no_inplace'])
+            'parse_no_inplace'])
         files = run_clang_format.glob_files(args)
 
         a_cpp_path = os.path.join('parse_no_inplace', 'a.cpp')

@@ -40,8 +40,6 @@ def parse_args(argv=None):
     parser.add_argument('--clang-format-binary', metavar='PATH',
                         default='clang-format',
                         help='path to clang-format binary')
-    parser.add_argument('-d', '--directory', metavar='DIRPATH', dest='directories', action='append',
-                        help='path(s) used to glob source files')
     parser.add_argument('-e', '--extensions', dest='extensions',
                         help='comma-delimited list of extensions used to glob source files',
                         default="c,cc,cpp,cxx,c++,h,hh,hpp,hxx,h++")
@@ -56,6 +54,8 @@ def parse_args(argv=None):
                         help='number of clang-format instances to be run in parallel')
     parser.add_argument('-v', '--verbose', action='store_true',
                         help='output verbose comments')
+    parser.add_argument(metavar='DIRPATH', dest='directories', nargs='*',
+                        help='path(s) used to glob source files')
 
     args = parser.parse_args(argv[1:])
 

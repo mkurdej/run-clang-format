@@ -13,7 +13,7 @@ class ParseClangFormatbinary(unittest.TestCase):
             sys.argv[0],
             '--no-inplace',
             '-style', 'Mozilla',
-            '-d', 'parse_style'])
+            'parse_style'])
         files = run_clang_format.glob_files(args)
 
         a_cpp_path = os.path.join('parse_style', 'a.cpp')

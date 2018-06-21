@@ -11,8 +11,8 @@ class GlobAllExtensions(unittest.TestCase):
     def test_short_arg(self):
         args = run_clang_format.parse_args([
             sys.argv[0],
-            '-d', 'glob_alternative_extensions',
-            '-e', 'c1,c2'])
+            '-e', 'c1,c2',
+            'glob_alternative_extensions'])
         files = run_clang_format.glob_files(args)
         self.assertEqual(3, len(files))
         files.sort()
@@ -25,7 +25,7 @@ class GlobAllExtensions(unittest.TestCase):
     def test_long_arg(self):
         args = run_clang_format.parse_args([
             sys.argv[0],
-            '-d', 'glob_alternative_extensions',
+            'glob_alternative_extensions',
             '--extensions', 'c1,c2'])
         files = run_clang_format.glob_files(args)
         self.assertEqual(3, len(files))

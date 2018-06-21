@@ -12,7 +12,7 @@ class ParseClangFormatBinary(unittest.TestCase):
         self.assertRaises(OSError, run_clang_format.parse_args, [
             sys.argv[0],
             '--clang-format-binary', 'unexisting-clang-format',
-            '-d', 'parse_clang_format_binary'])
+            'parse_clang_format_binary'])
 
 
 if __name__ == '__main__':

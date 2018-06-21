@@ -10,7 +10,7 @@ import run_clang_format  # pylint: disable=C0413
 class GlobChildrenDirs(unittest.TestCase):
     def test_basic(self):
         args = run_clang_format.parse_args(
-            [sys.argv[0], '-d', 'glob_children_dirs'])
+            [sys.argv[0], 'glob_children_dirs'])
         files = run_clang_format.glob_files(args)
         self.assertEqual(8, len(files))
         self.assertEqual([

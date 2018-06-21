@@ -10,7 +10,7 @@ import run_clang_format  # pylint: disable=C0413
 class GlobAllExtensions(unittest.TestCase):
     def test_basic(self):
         args = run_clang_format.parse_args(
-            [sys.argv[0], '-d', 'glob_all_extensions'])
+            [sys.argv[0], 'glob_all_extensions'])
         files = run_clang_format.glob_files(args)
         self.assertEqual(10, len(files))
         self.assertEqual([
