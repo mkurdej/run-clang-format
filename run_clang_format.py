@@ -106,7 +106,7 @@ def format_all(args, files):
     if max_task == 0:
         max_task = multiprocessing.cpu_count()
 
-        formatted_files = {}
+    formatted_files = {}
 
     try:
         # Spin up a bunch of format-launching threads.
